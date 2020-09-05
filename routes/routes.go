@@ -1,11 +1,15 @@
 package routes
 
-import 	(
-	"github.com/gin-gonic/gin"
+import (
+	controllers "restapi/controllers"
 	middlewares "restapi/middlewares"
-	articles "restapi/controllers"
+
+	"github.com/gin-gonic/gin"
 )
 
-func Routes(router *gin.Engine){
-	router.GET("/api", middlewares.DummyMiddleware, articles.GetUsers)
+func Routes(router *gin.Engine) {
+	router.GET("/api", middlewares.DummyMiddleware, controllers.GetUsers)
+	router.POST("/api", middlewares.DummyMiddleware, controllers.PostUsers)
+	router.POST("/login", middlewares.DummyMiddleware, controllers.LoginUser)
+	router.DELETE("/api", middlewares.DummyMiddleware, controllers.DeleteUsers)
 }

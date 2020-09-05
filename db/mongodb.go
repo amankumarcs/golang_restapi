@@ -2,11 +2,12 @@ package db
 
 import (
 	"context"
-	"fmt"
-	"net/http"
 	"encoding/json"
+	"fmt"
 	"log"
-    "go.mongodb.org/mongo-driver/mongo"
+	"net/http"
+
+	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
@@ -14,7 +15,7 @@ var database *mongo.Database
 
 func ConnectDB() {
 
-		// Set client options
+	// Set client options
 	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
 
 	// Connect to MongoDB
@@ -22,19 +23,20 @@ func ConnectDB() {
 
 	if err != nil {
 		log.Fatal(err)
+		return
 	}
 
 	fmt.Println("Connected to MongoDB!")
-	database = client.Database("colormaster")
+	database = client.Database("database")
 }
 
-	// ErrorResponse : This is error model.
+// ErrorResponse : This is error model.
 type ErrorResponse struct {
 	StatusCode   int    `json:"status"`
 	ErrorMessage string `json:"message"`
 }
 
-func GetCollection(CollectionName string) *mongo.Collection{
+func GetCollection(CollectionName string) *mongo.Collection {
 	collection := database.Collection(CollectionName)
 	return collection
 }
