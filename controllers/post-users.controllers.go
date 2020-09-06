@@ -22,12 +22,9 @@ func PostUsers(c *gin.Context) {
 		return
 	}
 
-	userData.ID = 5
-
 	result, err := collection.InsertOne(context.TODO(), userData)
 	if err != nil {
 		log.Printf("Could not create user: %v", err)
 	}
-	oid := result.InsertedID
-	c.JSON(200, gin.H{"statusCode": 200, "message": "customer found", "data": oid})
+	c.JSON(200, gin.H{"statusCode": 200, "message": "customer found", "data": result})
 }

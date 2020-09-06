@@ -15,8 +15,8 @@ import (
 )
 
 type Login struct {
-	Email    string
-	Password string
+	Email    string `form:"email" json:"email" binding:"required"`
+	Password string `form:"password" json:"password" binding:"required"`
 }
 
 func LoginUser(c *gin.Context) {
@@ -27,7 +27,7 @@ func LoginUser(c *gin.Context) {
 	err := c.ShouldBindJSON(&requestData)
 	if err != nil {
 		log.Print(err)
-		c.JSON(http.StatusUnprocessableEntity, "Invalid json provided")
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"statusCode": http.StatusUnprocessableEntity, "message": err.Error()})
 		return
 	}
 	query := bson.M{"email": requestData.Email}
