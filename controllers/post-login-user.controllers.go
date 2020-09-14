@@ -41,7 +41,9 @@ func LoginUser(c *gin.Context) {
 		return
 	}
 
-	if requestData.Password != userData.Password {
+	fmt.Println(helpers.CompareHashAndPassword(userData.Password, []byte(requestData.Password)))
+
+	if !helpers.CompareHashAndPassword(userData.Password, []byte(requestData.Password)) {
 		c.JSON(http.StatusUnauthorized, gin.H{"statusCode": http.StatusUnauthorized, "message": helpers.ErrorMessages["StatusUnauthorized"]})
 		return
 	}

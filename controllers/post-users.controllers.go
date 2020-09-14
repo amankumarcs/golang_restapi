@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	db "restapi/db"
+	"restapi/helpers"
 	models "restapi/models"
 
 	"github.com/gin-gonic/gin"
@@ -21,6 +22,8 @@ func PostUsers(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": err})
 		return
 	}
+
+	userData.Password = helpers.GenerateHash([]byte(userData.Password))
 
 	result, err := collection.InsertOne(context.TODO(), userData)
 	if err != nil {

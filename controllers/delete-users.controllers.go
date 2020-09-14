@@ -22,6 +22,7 @@ func DeleteUsers(c *gin.Context) {
 	}
 
 	query := bson.D{{"_id", bson.D{{"$in", userIds.Ids}}}}
+
 	result, err := collection.DeleteMany(context.TODO(), query)
 	if err != nil {
 		log.Fatal(err)

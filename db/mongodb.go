@@ -23,10 +23,16 @@ func ConnectDB() {
 
 	if err != nil {
 		log.Fatal(err)
-		return
+	}
+
+	err = client.Ping(context.TODO(), nil)
+
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	fmt.Println("Connected to MongoDB!")
+
 	database = client.Database("database")
 }
 
